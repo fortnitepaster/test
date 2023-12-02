@@ -153,35 +153,35 @@ namespace loop
 				SetWindowDisplayAffinity(window, !WDA_EXCLUDEFROMCAPTURE);
 
 			}
-			cached->gworld = driver.read<uintptr_t>(globals->imagebase + offsets->gworld);
-			cached->gameinstance = driver.read<uintptr_t>(cached->gworld + offsets->gameinstance);
-			cached->localplayers = driver.read<uintptr_t>(cached->gameinstance + offsets->localplayers);
-			cached->localplayer = driver.read<uintptr_t>(cached->localplayers);
-			cached->playercontroller = driver.read<uintptr_t>(cached->localplayer + offsets->playercontroller);
-			cached->acknowledgedpawn = driver.read<uintptr_t>(cached->playercontroller + offsets->acknowledgedpawn);
-			cached->playerstate = driver.read<uintptr_t>(cached->acknowledgedpawn + offsets->playerstate);
-			cached->rootcomp = driver.read<uintptr_t>(cached->acknowledgedpawn + offsets->rootcomp);
-			cached->persistentlevel = driver.read<uintptr_t>(cached->gworld + offsets->persistentlevel);
-			cached->gamestate = driver.read<uintptr_t>(cached->gworld + offsets->gamestate);
-			cached->relativelocation = driver.read<Vector3>(cached->rootcomp + offsets->relativelocation);
-			cached->teamid = driver.read<int>(cached->playerstate + offsets->teamid);
-			cached->entityarray = driver.read<uintptr_t>(cached->gamestate + offsets->entityarray);
-			cached->entitycount = driver.read<int>(cached->gamestate + (offsets->entityarray + sizeof(uintptr_t)));
+			cached->gworld = read<uintptr_t>(globals->imagebase + offsets->gworld);
+			cached->gameinstance = read<uintptr_t>(cached->gworld + offsets->gameinstance);
+			cached->localplayers = read<uintptr_t>(cached->gameinstance + offsets->localplayers);
+			cached->localplayer = read<uintptr_t>(cached->localplayers);
+			cached->playercontroller = read<uintptr_t>(cached->localplayer + offsets->playercontroller);
+			cached->acknowledgedpawn = read<uintptr_t>(cached->playercontroller + offsets->acknowledgedpawn);
+			cached->playerstate = read<uintptr_t>(cached->acknowledgedpawn + offsets->playerstate);
+			cached->rootcomp = read<uintptr_t>(cached->acknowledgedpawn + offsets->rootcomp);
+			cached->persistentlevel = read<uintptr_t>(cached->gworld + offsets->persistentlevel);
+			cached->gamestate = read<uintptr_t>(cached->gworld + offsets->gamestate);
+			cached->relativelocation = read<Vector3>(cached->rootcomp + offsets->relativelocation);
+			cached->teamid = read<int>(cached->playerstate + offsets->teamid);
+			cached->entityarray = read<uintptr_t>(cached->gamestate + offsets->entityarray);
+			cached->entitycount = read<int>(cached->gamestate + (offsets->entityarray + sizeof(uintptr_t)));
 			cached->closest_distance = FLT_MAX;
 			cached->closest_mesh = NULL;
 			for (uint32_t i = 0; i < cached->entitycount; i++)
 			{
 				
-				auto player = driver.read<uintptr_t>(cached->entityarray + i * offsets->CurrentActor);
-				auto CurrentActor = driver.read<uintptr_t>(player + offsets->pawnpriv);
-				int player_team_id = driver.read<int>(player + offsets->teamid);
-				auto CurrentWeapon = driver.read<uintptr_t>(CurrentActor + 0x9F8);
+				auto player = read<uintptr_t>(cached->entityarray + i * offsets->CurrentActor);
+				auto CurrentActor = read<uintptr_t>(player + offsets->pawnpriv);
+				int player_team_id = read<int>(player + offsets->teamid);
+				auto CurrentWeapon = read<uintptr_t>(CurrentActor + 0x9F8);
 				if (!CurrentActor) 
 				{
 					continue;
 				}
 				//if (player_team_id == cached->teamid) continue;
-				uint64_t mesh = driver.read<uint64_t>(CurrentActor + offsets->mesh);
+				uint64_t mesh = read<uint64_t>(CurrentActor + offsets->mesh);
 				if (CurrentActor == cached->acknowledgedpawn) continue;
 				
 

@@ -32,9 +32,9 @@ namespace unrealenginedecryption
 
 		__forceinline std::string platform(uint64_t PlayerState)
 		{
-			DWORD_PTR test_platform = driver.read<DWORD_PTR>(PlayerState + 0x438);
+			DWORD_PTR test_platform = read<DWORD_PTR>(PlayerState + 0x438);
 			wchar_t platform[64];
-			driver.read_buffer((uint64_t)test_platform, (uint8_t*)platform, sizeof(platform));
+			((uint64_t)test_platform, (uint8_t*)platform, sizeof(platform));
 			std::wstring platform_wstr(platform);
 			std::string platform_str(platform_wstr.begin(), platform_wstr.end());
 			return platform_str;
@@ -43,15 +43,15 @@ namespace unrealenginedecryption
 		__forceinline std::string username(__int64 playerstate)
 		{
 			
-			__int64 Name = driver.read<__int64>(playerstate + 0xAE8);
+			__int64 Name = read<__int64>(playerstate + 0xAE8);
 			if (!Name) return std::string("Bot/Ai");
-			int Length = driver.read<int>(Name + 16i64);
+			int Length = read<int>(Name + 16i64);
 			__int64 v6 = Length;
 			if (!v6) return std::string("Bot/Ai");
-			uintptr_t Data = driver.read<__int64>(Name + 8);
+			uintptr_t Data = read<__int64>(Name + 8);
 			if (!Data) return std::string("Bot/Ai");
 			wchar_t* NameBuffer = new wchar_t[Length];
-			driver.read_buffer(Data, (uint8_t*)(NameBuffer), (Length * 2));
+			driver->ReadProcessMemory(Data, (uint8_t*)(NameBuffer), (Length * 2));
 
 			char v21; // al
 			int v22; // r8d
@@ -84,15 +84,15 @@ namespace unrealenginedecryption
 		//__forceinline std::string weapon(uintptr_t actor)
 		//{
 		//	/*std::string weapon_name = _("");
-		//	uint64_t player_weapon = driver.read<uint64_t>(actor + 0x948);
+		//	uint64_t player_weapon = read<uint64_t>(actor + 0x948);
 		//	if (player_weapon) {
-		//		uint64_t weapon_data = driver.read<uint64_t>(player_weapon + 0x498);
+		//		uint64_t weapon_data = read<uint64_t>(player_weapon + 0x498);
 		//		if (weapon_data) {
-		//			uint64_t ftext_ptr = driver.read<uint64_t>(weapon_data + 0x90);
+		//			uint64_t ftext_ptr = read<uint64_t>(weapon_data + 0x90);
 
 		//			if (ftext_ptr) {
-		//				uint64_t ftext_data = driver.read<uint64_t>(ftext_ptr + 0x28);
-		//				int ftext_length = driver.read<int>(ftext_ptr + 0x30);
+		//				uint64_t ftext_data = read<uint64_t>(ftext_ptr + 0x28);
+		//				int ftext_length = read<int>(ftext_ptr + 0x30);
 		//				if (ftext_length > 0 && ftext_length < 50) {
 		//					wchar_t* ftext_buf = new wchar_t[ftext_length];
 		//					ctx->read_array((uintptr_t)ftext_data, (uintptr_t)ftext_buf, ftext_length * sizeof(wchar_t));
@@ -107,14 +107,14 @@ namespace unrealenginedecryption
 		//	
 		//}
 		__forceinline std::string weapon(uint64_t CurrentWeapon) {
-			auto ItemData = driver.read<DWORD_PTR>(CurrentWeapon + 0x498);
-			auto DisplayName = driver.read<uint64_t>(ItemData + 0x98);
-			auto WeaponLength = driver.read<uint32_t>(DisplayName + 0x40);
+			auto ItemData = read<DWORD_PTR>(CurrentWeapon + 0x498);
+			auto DisplayName = read<uint64_t>(ItemData + 0x98);
+			auto WeaponLength = read<uint32_t>(DisplayName + 0x40);
 			wchar_t* WeaponName = new wchar_t[uint64_t(WeaponLength) + 1];
-			driver.read_buffer((ULONG64)driver.read<PVOID>(DisplayName + 0x38), (uint8_t*)WeaponName, WeaponLength * sizeof(wchar_t));
+			driver->ReadProcessMemory((ULONG64)read<PVOID>(DisplayName + 0x38), (uint8_t*)WeaponName, WeaponLength * sizeof(wchar_t));
 
 			BYTE tier;
-			tier = driver.read<BYTE>(ItemData + 0x73);
+			tier = read<BYTE>(ItemData + 0x73);
 			ImColor Color;
 
 			if (tier == 2)

@@ -45,7 +45,7 @@ char* wchar_to_char(const wchar_t* pwchar)
 void AimAt(DWORD_PTR entity)
 {
 	Vector2 bone;
-	uint64_t currentactormesh = driver.read<uint64_t>(entity + offsets->mesh);
+	uint64_t currentactormesh = read<uint64_t>(entity + offsets->mesh);
 	if (aimbot->bone == 0) {
 		bone = uengine->worldtscreen(uengine->bonewithrotation(currentactormesh, 109));
 	}

@@ -112,15 +112,15 @@ void trigger() {
 }
 void aimbott(DWORD_PTR entity) {
 	SPOOF;
-	uintptr_t cachedgworld = driver.read<uintptr_t>(globals->imagebase + offsets->gworld);
-	uintptr_t cachedgameinstance = driver.read<uintptr_t>(cachedgworld + offsets->gameinstance);
-	uintptr_t cachedlocalplayers = driver.read<uintptr_t>(cachedgameinstance + offsets->localplayers);
-	uintptr_t cachedlocalplayer = driver.read<uintptr_t>(cachedlocalplayers);
-	uintptr_t cachedplayercontroller = driver.read<uintptr_t>(cachedlocalplayer + offsets->playercontroller);
+	uintptr_t cachedgworld = read<uintptr_t>(globals->imagebase + offsets->gworld);
+	uintptr_t cachedgameinstance = read<uintptr_t>(cachedgworld + offsets->gameinstance);
+	uintptr_t cachedlocalplayers = read<uintptr_t>(cachedgameinstance + offsets->localplayers);
+	uintptr_t cachedlocalplayer = read<uintptr_t>(cachedlocalplayers);
+	uintptr_t cachedplayercontroller = read<uintptr_t>(cachedlocalplayer + offsets->playercontroller);
 	Vector2 screen_center = { static_cast<double>(globals->width) / 2, static_cast<double>(globals->height) / 2 };
 	Vector2 target{};
 	Vector2 bone;
-	uint64_t currentactormesh = driver.read<uint64_t>(entity + offsets->mesh);
+	uint64_t currentactormesh = read<uint64_t>(entity + offsets->mesh);
 	if (aimbot->bone == 0) {
 		bone = uengine->worldtscreen(uengine->bonewithrotation(currentactormesh, 109));
 	}
@@ -145,8 +145,8 @@ void aimbott(DWORD_PTR entity) {
 
 	Vector3 original1(0, 0, 0);
 	//if (aimbot->enable && (Controller::IsPressingLeftTrigger() || GetAsyncKeyState(aimkey) < 0)) {
-		driver.write(cachedplayercontroller + 0x520, Angles.x);
-		driver.write(cachedplayercontroller + 0x520 + 0x8, Angles.y);
+		write(cachedplayercontroller + 0x520, Angles.x);
+		write(cachedplayercontroller + 0x520 + 0x8, Angles.y);
 	//}
 	if (aimbot->triggerbot){ //&& ( Controller::IsPressingLeftTrigger() || GetAsyncKeyState(aimkey) < 0)) {
 		

@@ -253,8 +253,8 @@ struct unrealengine
 	{
 		SPOOF;
 
-		float fLastSubmitTime = driver.read<float>(mesh + offsets->lastsubmit);
-		float fLastRenderTimeOnScreen = driver.read<float>(mesh + offsets->lastrender);
+		float fLastSubmitTime = read<float>(mesh + offsets->lastsubmit);
+		float fLastRenderTimeOnScreen = read<float>(mesh + offsets->lastrender);
 		const float tick = 0.01f;
 		return fLastRenderTimeOnScreen + tick >= fLastSubmitTime;
 		//return fLastRenderTimeOnScreen + 0.06f >= fLastSubmitTime;
@@ -368,13 +368,13 @@ struct unrealengine
 	__forceinline auto bonewithrotation(uintptr_t MESH, int ID) -> Vector3
 	{
 		SPOOF;
-		uintptr_t BoneA = driver.read<uintptr_t>(MESH + offsets->bonearray);
+		uintptr_t BoneA = read<uintptr_t>(MESH + offsets->bonearray);
 		if (BoneA == NULL)
 		{
-			BoneA = driver.read<uintptr_t>(MESH + offsets->bonearray + 0x10);
+			BoneA = read<uintptr_t>(MESH + offsets->bonearray + 0x10);
 		}
-		FTransform Bone = driver.read<FTransform>(BoneA + (ID * offsets->bonec));
-		FTransform Comp = driver.read<FTransform>(MESH + offsets->comptowrld);
+		FTransform Bone = read<FTransform>(BoneA + (ID * offsets->bonec));
+		FTransform Comp = read<FTransform>(MESH + offsets->comptowrld);
 		D3DMATRIX matrix = matrixm(Bone.ToMatrixWithScale(), Comp.ToMatrixWithScale());
 		return Vector3(matrix._41, matrix._42, matrix._43);
 	}
@@ -388,16 +388,16 @@ struct unrealengine
 	__forceinline auto viewpoint() -> cdecrypt
 	{
 		SPOOF;
-		uintptr_t cachedgworld = driver.read<uintptr_t>(globals->imagebase + offsets->gworld);
-		uintptr_t cachedgameinstance = driver.read<uintptr_t>(cachedgworld + offsets->gameinstance);
-		uintptr_t cachedlocalplayers = driver.read<uintptr_t>(cachedgameinstance + offsets->localplayers);
-		uintptr_t cachedlocalplayer = driver.read<uintptr_t>(cachedlocalplayers);
-		uintptr_t cachedplayercontroller = driver.read<uintptr_t>(cachedlocalplayer + offsets->playercontroller);
+		uintptr_t cachedgworld = read<uintptr_t>(globals->imagebase + offsets->gworld);
+		uintptr_t cachedgameinstance = read<uintptr_t>(cachedgworld + offsets->gameinstance);
+		uintptr_t cachedlocalplayers = read<uintptr_t>(cachedgameinstance + offsets->localplayers);
+		uintptr_t cachedlocalplayer = read<uintptr_t>(cachedlocalplayers);
+		uintptr_t cachedplayercontroller = read<uintptr_t>(cachedlocalplayer + offsets->playercontroller);
 
 		cdecrypt camera;
 
-		auto locationp = driver.read<uintptr_t>(cachedgworld + 0x110);
-		auto rotationp = driver.read<uintptr_t>(cachedgworld + 0x120);
+		auto locationp = read<uintptr_t>(cachedgworld + 0x110);
+		auto rotationp = read<uintptr_t>(cachedgworld + 0x120);
 
 		struct fnrotation
 		{
@@ -406,14 +406,14 @@ struct unrealengine
 			double c;
 		}fnrotation;
 
-		fnrotation.a = driver.read<double>(rotationp);
-		fnrotation.b = driver.read<double>(rotationp + 0x20);
-		fnrotation.c = driver.read<double>(rotationp + 0x1d0);
+		fnrotation.a = read<double>(rotationp);
+		fnrotation.b = read<double>(rotationp + 0x20);
+		fnrotation.c = read<double>(rotationp + 0x1d0);
 
-		camera.location = driver.read<Vector3>(locationp);
+		camera.location = read<Vector3>(locationp);
 		camera.rotation.x = asin(fnrotation.c) * (180.0 / M_PI);
 		camera.rotation.y = ((atan2(fnrotation.a * -1, fnrotation.b) * (180.0 / M_PI)) * -1) * -1;
-		camera.fov = driver.read<float>((uintptr_t)cachedplayercontroller + 0x394) * 90.f;
+		camera.fov = read<float>((uintptr_t)cachedplayercontroller + 0x394) * 90.f;
 
 		return camera;
 	}
