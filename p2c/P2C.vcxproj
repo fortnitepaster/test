@@ -145,12 +145,6 @@
     <ClCompile Include="backend\framework\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="backend\framework\imgui\imgui_tables.cpp" />
     <ClCompile Include="backend\framework\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="backend\kernel\driver.cpp" />
-    <ClCompile Include="backend\mapper\executable\portable_executable.cpp" />
-    <ClCompile Include="backend\mapper\intel driver\intel_driver.cpp" />
-    <ClCompile Include="backend\mapper\mapper\kdmapper.cpp" />
-    <ClCompile Include="backend\mapper\service\service.cpp" />
-    <ClCompile Include="backend\mapper\utils\utils.cpp" />
     <ClCompile Include="frontend\protection\process\AntiCrack.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -200,17 +194,8 @@
     <ClInclude Include="backend\impl\hash.hpp" />
     <ClInclude Include="backend\impl\imports.hpp" />
     <ClInclude Include="backend\impl\include.hpp" />
-    <ClInclude Include="backend\kernel\defs.h" />
     <ClInclude Include="backend\kernel\driver.h" />
-    <ClInclude Include="backend\mapper\driver_map.h" />
-    <ClInclude Include="backend\mapper\executable\portable_executable.hpp" />
-    <ClInclude Include="backend\mapper\intel driver\intel_driver.hpp" />
-    <ClInclude Include="backend\mapper\intel driver\intel_driver_resource.hpp" />
-    <ClInclude Include="backend\mapper\mapper\kdmapper.hpp" />
-    <ClInclude Include="backend\mapper\service\service.hpp" />
-    <ClInclude Include="backend\mapper\utils\driver.h" />
-    <ClInclude Include="backend\mapper\utils\nt.hpp" />
-    <ClInclude Include="backend\mapper\utils\utils.hpp" />
+    <ClInclude Include="backend\kernel\driverdefs.h" />
     <ClInclude Include="frontend\protection\encryption\function\lazy.h" />
     <ClInclude Include="frontend\protection\process\AntiCrack.h" />
     <ClInclude Include="includes.hpp" />

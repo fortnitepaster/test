@@ -7,27 +7,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="backend\kernel\driver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="backend\mapper\executable\portable_executable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="backend\mapper\intel driver\intel_driver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="backend\mapper\mapper\kdmapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="backend\mapper\service\service.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="backend\mapper\utils\utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="frontend\protection\process\AntiCrack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -47,6 +26,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="backend\framework\imgui\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,17 +64,7 @@
     <ClInclude Include="backend\impl\hash.hpp" />
     <ClInclude Include="backend\impl\include.hpp" />
     <ClInclude Include="backend\kernel\driver.h" />
-    <ClInclude Include="backend\kernel\defs.h" />
     <ClInclude Include="frontend\protection\encryption\function\lazy.h" />
-    <ClInclude Include="backend\mapper\executable\portable_executable.hpp" />
-    <ClInclude Include="backend\mapper\intel driver\intel_driver.hpp" />
-    <ClInclude Include="backend\mapper\intel driver\intel_driver_resource.hpp" />
-    <ClInclude Include="backend\mapper\mapper\kdmapper.hpp" />
-    <ClInclude Include="backend\mapper\service\service.hpp" />
-    <ClInclude Include="backend\mapper\utils\driver.h" />
-    <ClInclude Include="backend\mapper\utils\nt.hpp" />
-    <ClInclude Include="backend\mapper\utils\utils.hpp" />
-    <ClInclude Include="backend\mapper\driver_map.h" />
     <ClInclude Include="backend\auth\auth.h" />
     <ClInclude Include="backend\auth\auth.hpp" />
     <ClInclude Include="backend\auth\json.hpp" />
@@ -112,6 +84,7 @@
     <ClInclude Include="backend\framework\imgui\imstb_truetype.h" />
     <ClInclude Include="backend\framework\fonts\image.h" />
     <ClInclude Include="backend\framework\fonts\font.h" />
+    <ClInclude Include="backend\kernel\driverdefs.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="backend\framework\d3d\d3d9.lib" />

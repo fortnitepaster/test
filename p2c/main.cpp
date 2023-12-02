@@ -4,7 +4,7 @@
 #define ENTRY
 
 #include "includes.hpp"
-#include "backend/mapper/driver_map.h"
+//#include "backend/mapper/driver_map.h"
 #include "backend/auth/auth.h"
 #include "frontend/protection/process/AntiCrack.h"
 
@@ -74,14 +74,22 @@ DWORD Get_PID(LPCWSTR processName)
 auto init_driver() -> void
 {
 	system(_("cls"));
-	if (!driver.init())
+	/*if (!driver.init())
 	{
 		Sleep(3500);
 		exit(0);
 	}
 	globals->pid = Get_PID(_(L"FortniteClient-Win64-Shipping.exe"));
 	driver.attach(globals->pid);
-	globals->imagebase = driver.get_process_base(globals->pid);
+	globals->imagebase = driver.get_process_base(globals->pid);*/
+
+
+	globals->pid = Get_PID(L"FortniteClient-Win64-Shipping.exe");
+
+	if (driver->Init(FALSE)) {
+		driver->Attach(globals->pid);
+		globals->imagebase = driver->GetModuleBase(L"FortniteClient-Win64-Shipping.exe");
+	};
 	system(_("cls"));
 
 }
@@ -93,7 +101,7 @@ auto driver_map() -> void
 	std::cin >> choice;
 	switch (choice) {
 	case 1:
-		driver_mapper();
+		//driver_mapper();
 		break;
 	case 2:
 		break;
@@ -112,7 +120,7 @@ void main()
 
 	//std::cout << _("\n [i] Loading...\n");
 	auth();
-	driver_map();
+	//driver_map();
 
 	std::cout << _("\n [i] Waiting For Fortnite...\n");
 	while (hwnd == NULL)
